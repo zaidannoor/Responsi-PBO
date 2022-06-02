@@ -7,6 +7,7 @@ package app.controller;
 
 import app.model.Movie;
 import app.view.ViewMain;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -16,7 +17,20 @@ public class MovieController {
     
     public void submitForm(String judul,double alur,double penokohan,double akting){
         Movie movie = new Movie();
-        movie.insertDataMovie(judul,alur,penokohan,akting);
+        if(alur < 0 || penokohan < 0 || akting < 0){
+            JOptionPane.showMessageDialog(null,"Minimal inputan adalah 0");
+        }
+        else if(alur > 5 || penokohan > 5 || akting > 5){
+            JOptionPane.showMessageDialog(null,"Maximal inputan adalah 5");
+        }
+        else if(judul.equals("")){
+            JOptionPane.showMessageDialog(null,"Judul tidak boleh kosong");
+        }
+        else{
+            movie.insertDataMovie(judul,alur,penokohan,akting);
+        }
+        
+        
         
         
     }
