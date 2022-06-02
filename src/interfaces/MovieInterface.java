@@ -12,5 +12,5 @@ package interfaces;
 public interface MovieInterface {
     public String[][] getDataMovie();
     public boolean insertDataMovie(String judul,double alur,double penokohan,double akting);
-    public boolean updateDataMovie();
+    public int updateDataMovie(String judul,double alur,double penokohan,double akting);
 }

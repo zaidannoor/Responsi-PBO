@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2022 at 04:57 AM
+-- Generation Time: Jun 02, 2022 at 03:33 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.11
 
@@ -42,8 +42,10 @@ CREATE TABLE `movie` (
 INSERT INTO `movie` (`judul`, `alur`, `penokohan`, `akting`, `nilai`) VALUES
 ('Avengers ENDGAME', 5, 5, 5, 5),
 ('Gatot Kaca', 3, 3, 4.5, 3.5),
-('Gundam', 2.5, 3.5, 3, 3),
-('Narnia', 5, 5, 5, 5);
+('Gundala', 5, 5, 4, 4.666666666666667),
+('Gundam', 3, 3.5, 3, 3.1666666666666665),
+('Narnia', 5, 5, 5, 5),
+('Soekarno', 4, 5, 5, 4.666666666666667);
 
 --
 -- Indexes for dumped tables

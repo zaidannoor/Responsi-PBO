@@ -12,6 +12,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
 import java.security.NoSuchAlgorithmException;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -99,46 +101,53 @@ public class ViewMain implements ActionListener{
         scrollPane = new JScrollPane(tabel);
         window.add(scrollPane);
         scrollPane.setBounds(20, 20, 500, 500);
-        
+
         controller = new MovieController();
         
-//        btnTambah.addActionListener(new ActionListener() {
-//            @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    controller.submitForm(getJudul(),getAlur(),getPenokohan(),getAkting());
-//                    window.setVisible(false);
-//                    new ViewMain();
-//                    
-//                }
-//        });
-//        
-//        btnUpdate.addActionListener(new ActionListener() {
-//            @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    
-//                    
-//                }
-//        });
-//        
-//        btnClear.addActionListener(new ActionListener() {
-//            @Override
-//                public void actionPerformed(ActionEvent e) {
-//                    controller.updateForm();
-//                    
-//                }
-//        });
+        // Mengambil data click tabel
+        tabel.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+        public void valueChanged(ListSelectionEvent event) {
+            String judul = tabel.getValueAt(tabel.getSelectedRow(), 0).toString();
+            String alur = tabel.getValueAt(tabel.getSelectedRow(), 1).toString();
+            String penokohan = tabel.getValueAt(tabel.getSelectedRow(), 2).toString();
+            String akting = tabel.getValueAt(tabel.getSelectedRow(), 3).toString();
+            setJudul(judul);
+            setAlur(alur);
+            setPenokohan(penokohan);
+            setAkting(akting);
+
+        }
+    });
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btnTambah){
-            System.out.println("btn tambah");
             controller.submitForm(this);
             window.setVisible(false);
             new ViewMain();
         }
         
+        if(e.getSource() == btnClear){
+            controller.clearForm(this);
+        }
+        
+        if(e.getSource() == btnUpdate){
+            controller.updateForm(this);
+            window.setVisible(false);
+            new ViewMain();
+            
+        }
+        
+        if(e.getSource() == btnDelete){
+            controller.deleteForm(this);
+            window.setVisible(false);
+            new ViewMain();
+        }
+        
     }
+    
+    
     
     public String getJudul(){
         return tfjudul.getText();
@@ -155,6 +164,20 @@ public class ViewMain implements ActionListener{
         double akting = Double.parseDouble(tfakting.getText());
         return akting;
     }
+    
+    public void setJudul(String isi){   
+        tfjudul.setText(isi);
+    }
+    public void setAlur(String isi){
+        tfalur.setText(isi);
+    }
+    public void setPenokohan(String isi){
+        tfpenokohan.setText(isi);
+    }
+    public void setAkting(String isi){
+        tfakting.setText(isi);
+    }
+    
 
     
 }

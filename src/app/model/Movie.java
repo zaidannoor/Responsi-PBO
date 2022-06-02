@@ -62,8 +62,37 @@ public class Movie implements MovieInterface{
     }
 
     @Override
-    public boolean updateDataMovie() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public int updateDataMovie(String judul,double alur,double penokohan,double akting) {
+        double nilai = (alur+penokohan+akting)/3;
+        try {
+            String query = "UPDATE movie set"
+                    + " alur='"+alur+"', penokohan='"+penokohan+"', akting='"+akting+"', "
+                    + "nilai='"+nilai+"' WHERE judul='"+judul+"'";
+            
+            connector.statement = connector.koneksi.createStatement();
+            int affectedRow = connector.statement.executeUpdate(query); // eksekusi query
+             
+            return affectedRow;
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            return 0;
+        }
+        
+    }
+    
+    public int deleteDataMovie(String judul) {
+        try {
+            String query = "DELETE FROM movie WHERE judul='"+judul+"'";
+            
+            connector.statement = connector.koneksi.createStatement();
+            int affectedRow = connector.statement.executeUpdate(query); // eksekusi query
+             
+            return affectedRow;
+        } catch (Exception ex){
+            System.out.println(ex.getMessage());
+            return 0;
+        }
+        
     }
     
 }
