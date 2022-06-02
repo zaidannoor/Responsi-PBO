@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Lenovo
  */
-public class ViewMain {
+public class ViewMain implements ActionListener{
     Connector connector = new Connector();
     
     //DEKLARASI KOMPONEN  
@@ -42,6 +42,7 @@ public class ViewMain {
     JButton btnDelete = new JButton("Delete");
     JButton btnClear = new JButton("Clear");
     
+    MovieController controller;
    
     public ViewMain(){
         Movie movie = new Movie();
@@ -87,23 +88,56 @@ public class ViewMain {
             btnDelete.setBounds(610,415,120,30);
             btnClear.setBounds(610, 465, 120, 30);
         
+        // add actionlistener untuk button
+            btnTambah.addActionListener(this);
+            btnUpdate.addActionListener(this);
+            btnDelete.addActionListener(this);
+            btnClear.addActionListener(this);
+        
         // add table
         tabel = new JTable(data,namaKolom); //tabel merupakan variabel untuk tabelnya dengan isi tablemodel
         scrollPane = new JScrollPane(tabel);
         window.add(scrollPane);
         scrollPane.setBounds(20, 20, 500, 500);
-        //scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        MovieController controller = new MovieController();
         
-        btnTambah.addActionListener(new ActionListener() {
-            @Override
-                public void actionPerformed(ActionEvent e) {
-                    controller.submitForm(getJudul(),getAlur(),getPenokohan(),getAkting());
-                    window.setVisible(false);
-                    new ViewMain();
-                    
-                }
-            });
+        controller = new MovieController();
+        
+//        btnTambah.addActionListener(new ActionListener() {
+//            @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    controller.submitForm(getJudul(),getAlur(),getPenokohan(),getAkting());
+//                    window.setVisible(false);
+//                    new ViewMain();
+//                    
+//                }
+//        });
+//        
+//        btnUpdate.addActionListener(new ActionListener() {
+//            @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    
+//                    
+//                }
+//        });
+//        
+//        btnClear.addActionListener(new ActionListener() {
+//            @Override
+//                public void actionPerformed(ActionEvent e) {
+//                    controller.updateForm();
+//                    
+//                }
+//        });
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() == btnTambah){
+            System.out.println("btn tambah");
+            controller.submitForm(this);
+            window.setVisible(false);
+            new ViewMain();
+        }
+        
     }
     
     public String getJudul(){
@@ -121,4 +155,6 @@ public class ViewMain {
         double akting = Double.parseDouble(tfakting.getText());
         return akting;
     }
+
+    
 }
